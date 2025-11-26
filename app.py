@@ -1,8 +1,9 @@
 import os
 from typing import List
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from excel_parser import parse_excel
 
 BASE_DIR = os.path.dirname(__file__)
@@ -68,3 +69,11 @@ def get_metrics():
         metrics["by_severity"][sev] = metrics["by_severity"].get(sev, 0) + 1
         metrics["by_status"][st] = metrics["by_status"].get(st, 0) + 1
     return metrics
+
+# Serve the frontend HTML at root
+@app.get("/", response_class=FileResponse)
+def serve_index():
+    return FileResponse(os.path.join(BASE_DIR, "index.html"))
+
+# Mount static files for CSS and JS
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")

@@ -2,4 +2,6 @@ fastapi
 uvicorn[standard]
 pandas
 openpyxl
+xlrd
+pyxlsb
 python-multipart
