@@ -76,4 +76,4 @@ def serve_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
 # Mount static files for CSS and JS
-app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
