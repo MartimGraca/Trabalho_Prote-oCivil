@@ -11,16 +11,18 @@
     <header class="header">
         <div class="container">
             <div class="nav-brand">
-                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"></svg>
                 <h1>Proteção Civil</h1>
             </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-link active">Alertas</a>
-                <a href="#" class="nav-link">Mapa</a>
-                <a href="#" class="nav-link">Estatísticas</a>
-                <a href="#" class="nav-link">Contactos</a>
+
+            <nav class="nav-menu top-nav">
+                <a href="#" class="nav-link nav-btn active" data-target="dashboard">Dashboard</a>
+                <a href="#" class="nav-link nav-btn" data-target="new">Nova Ocorrência</a>
+                <a href="#" class="nav-link nav-btn" data-target="list">Ocorrências</a>
+                <a href="#" class="nav-link nav-btn" data-target="reports">Relatórios</a>
+                <a href="#" class="nav-link nav-btn" data-target="map">Mapa</a>
+                <a href="#" class="nav-link nav-btn" data-target="users">Utilizadores</a>
+                <a href="#" class="nav-link nav-btn" data-target="settings">Configurações</a>
             </nav>
         </div>
     </header>
@@ -28,174 +30,53 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
-            <!-- Page Header -->
-            <div class="page-header">
-                <h2>Alertas Ativos</h2>
-                <p class="subtitle">Acompanhe os alertas de proteção civil em tempo real</p>
-            </div>
 
-            <!-- Search and Filters -->
-            <div class="filters-bar">
-                <div class="search-box">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="m21 21-4.35-4.35"/>
-                    </svg>
-                    <input type="text" placeholder="Pesquisar alertas..." class="search-input">
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active">Todos</button>
-                    <button class="filter-btn">Crítico</button>
-                    <button class="filter-btn">Alto</button>
-                    <button class="filter-btn">Médio</button>
-                    <button class="filter-btn">Baixo</button>
-                </div>
-            </div>
+            <!-- DASHBOARD (página inicial) -->
+            <section id="page-dashboard">
+                <!-- ...existing dashboard content (métricas, cards, etc.) ... -->
+            </section>
 
-            <!-- Alert Cards Grid -->
-            <div class="alerts-grid">
-                <!-- Critical Alert -->
-                <div class="alert-card severity-critical">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-critical">Crítico</span>
-                        <span class="alert-time">Há 15 min</span>
+            <!-- OCORRÊNCIAS (nova página dedicada) -->
+            <section id="page-occurrences" style="display:none">
+                <div class="page-header">
+                    <h2>Ocorrências Registadas</h2>
+                    <p class="subtitle">Lista completa de ocorrências — ativas e históricas</p>
+                </div>
+
+                <div class="occ-actions-bar">
+                    <div class="occ-toolbar-left">
+                        <div class="search-box small">
+                            <input class="search-input" placeholder="Pesquisar ocorrências..." />
+                        </div>
+                        <div class="filter-buttons small">
+                            <button class="filter-btn active">Todos</button>
+                            <button class="filter-btn">Crítico</button>
+                            <button class="filter-btn">Alto</button>
+                            <button class="filter-btn">Médio</button>
+                            <button class="filter-btn">Baixo</button>
+                        </div>
                     </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-                        </svg>
-                        <span>Incêndio Florestal</span>
-                    </div>
-                    <h3 class="alert-title">Incêndio de Grandes Dimensões em Zona Florestal</h3>
-                    <p class="alert-description">Incêndio ativo com propagação rápida na região norte. Evacuação recomendada para residentes nas áreas afetadas.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Região Norte - Viana do Castelo</span>
+
+                    <div class="occ-toolbar-right">
+                        <!-- upload now lives on the occurrences page -->
+                        <form id="upload-form-occ" class="upload-form" enctype="multipart/form-data">
+                            <input id="excel-file-occ" name="file" type="file" accept=".xls,.xlsx" style="display:none" />
+                            <label for="excel-file-occ" class="custom-file-btn" role="button" aria-label="Escolher ficheiro">Escolher ficheiro</label>
+                            <span id="selected-file-name" class="selected-file-name">Nenhum ficheiro selecionado</span>
+                            <button type="submit" class="upload-btn">Enviar Excel</button>
+                            <span id="upload-status-occ" class="upload-status" aria-live="polite"></span>
+                        </form>
                     </div>
                 </div>
 
-                <!-- High Alert -->
-                <div class="alert-card severity-high">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-high">Alto</span>
-                        <span class="alert-time">Há 1 hora</span>
-                    </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                        </svg>
-                        <span>Condições Meteorológicas</span>
-                    </div>
-                    <h3 class="alert-title">Aviso Vermelho - Chuva Intensa e Ventos Fortes</h3>
-                    <p class="alert-description">Previsão de precipitação intensa e rajadas de vento até 100 km/h. Risco de queda de árvores e inundações.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Região Centro - Coimbra</span>
+                <div class="card occurrences-list">
+                    <div id="occurrences-count" class="occurrences-count">0 ocorrência(s) encontrada(s)</div>
+                    <div class="alerts-grid" id="occurrences-grid">
+                        <!-- cards serão renderizados aqui pelo script.js -->
                     </div>
                 </div>
+            </section>
 
-                <!-- Medium Alert -->
-                <div class="alert-card severity-medium">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-medium">Médio</span>
-                        <span class="alert-time">Há 3 horas</span>
-                    </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-                            <path d="M12 8v4l2 2"/>
-                        </svg>
-                        <span>Inundação</span>
-                    </div>
-                    <h3 class="alert-title">Risco de Cheias em Zonas Ribeirinhas</h3>
-                    <p class="alert-description">Aumento do nível dos rios devido à precipitação acumulada. Monitorização ativa das zonas ribeirinhas.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Região de Lisboa - Tejo</span>
-                    </div>
-                </div>
-
-                <!-- Low Alert -->
-                <div class="alert-card severity-low">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-low">Baixo</span>
-                        <span class="alert-time">Há 5 horas</span>
-                    </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                        <span>Aviso Geral</span>
-                    </div>
-                    <h3 class="alert-title">Exercício de Simulação de Emergência</h3>
-                    <p class="alert-description">Exercício de treino agendado para teste dos sistemas de alerta e procedimentos de emergência.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Todo o País</span>
-                    </div>
-                </div>
-
-                <!-- Another Medium Alert -->
-                <div class="alert-card severity-medium">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-medium">Médio</span>
-                        <span class="alert-time">Há 6 horas</span>
-                    </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                        </svg>
-                        <span>Sismicidade</span>
-                    </div>
-                    <h3 class="alert-title">Atividade Sísmica Registada</h3>
-                    <p class="alert-description">Sismo de magnitude 3.2 registado ao largo da costa. Sem danos reportados.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Costa Algarvia</span>
-                    </div>
-                </div>
-
-                <!-- Another Low Alert -->
-                <div class="alert-card severity-low">
-                    <div class="alert-header">
-                        <span class="alert-badge badge-low">Baixo</span>
-                        <span class="alert-time">Há 8 horas</span>
-                    </div>
-                    <div class="alert-category">
-                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
-                        </svg>
-                        <span>Informação Pública</span>
-                    </div>
-                    <h3 class="alert-title">Campanha de Prevenção de Incêndios</h3>
-                    <p class="alert-description">Lançamento da campanha de sensibilização para prevenção de incêndios florestais durante o verão.</p>
-                    <div class="alert-location">
-                        <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Nacional</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -210,6 +91,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- add modal & occ template -->
+    <template id="occ-actions-tpl">
+        <div class="occ-actions">
+            <button class="occ-action view-btn">Ver</button>
+            <button class="occ-action edit-btn">Editar</button>
+            <button class="occ-action resolve-btn">Resolver</button>
+        </div>
+    </template>
+
+    <!-- simple detail modal -->
+    <div id="occ-modal" class="occ-modal" aria-hidden="true" style="display:none">
+        <div class="occ-modal-content">
+            <button id="occ-close" class="occ-modal-close">&times;</button>
+            <div id="occ-detail"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
