@@ -13,9 +13,10 @@ venv/
 ENV/
 env/
 
-# Data files (uploaded Excel files)
+# Data files (uploaded Excel files and SQLite database)
 data/*.xlsx
 data/*.xls
+data/*.db
 
 # IDE
 .vscode/

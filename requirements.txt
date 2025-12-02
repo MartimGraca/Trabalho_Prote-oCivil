@@ -1,7 +1,7 @@
-fastapi
-uvicorn[standard]
+# Bibliotecas para leitura de Excel
 pandas
 openpyxl
 xlrd
 pyxlsb
-python-multipart
+
+# SQLite já vem incluído no Python (sqlite3)
